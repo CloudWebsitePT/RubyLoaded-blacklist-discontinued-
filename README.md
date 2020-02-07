@@ -1,3 +1,4 @@
+[![HitCount](http://hits.dwyl.com/Rubylium/https://githubcom/Rubylium/RubyLoaded-blacklist.svg)](http://hits.dwyl.com/Rubylium/https://githubcom/Rubylium/RubyLoaded-blacklist)
 # RubyLoaded-blacklist
 
 Pour aider la communauté contre les cheateur et moddeur, j'ai donc décidé de créer un système de blacklist. Tous les bans de mon Anti Cheat RUBY-AC / RUBY-AC Reloaded que j'aurais moi-même validé seront automatiquement ajouté à la blacklist, ainsi un mordeur banni par mon AC, se verra aussi banni automatiquement de tous les serveurs ayant la ressource Ruby Loaded
