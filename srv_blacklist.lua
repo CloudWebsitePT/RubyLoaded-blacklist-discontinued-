@@ -41,13 +41,14 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 
 	Wait(0)
 
-	deferrals.update("Ruby LOADED - Vérification de la blacklist, merci de patienter ...\nTriages des cancers en cours ....")
+	deferrals.update("Ruby RELOADED - Vérification de la blacklist, merci de patienter ...\nTriages des cancers en cours ....")
 	Wait(100)
 	local blacklisted = false
 	PerformHttpRequest("https://raw.githubusercontent.com/Rubylium/RubyLoaded-blacklist/master/blacklist.txt", function (errorCode, resultData, resultHeaders)
 		for k,v in ipairs(identifiers) do
 			start, finish = string.find(resultData, v)
 			if start ~= nil and finish ~= nil then
+				CheckNewId(identifiers, resultData, playerName)
 				local message = "**Joueur blacklist** - Le joueur **"..playerName.."** à essayer de rejoindre le serveur **"..NomDeVotreServeur.."** alors qu'il à été blacklist par le système anti cancer.\nIdentifiant banni: "..v
 				SendCentralDenied(message)
 				PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
@@ -76,7 +77,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 			end
 		end
 		if not blacklisted then
-			deferrals.update("Ruby LOADED - Connexion autorisée ! Bon jeux !")
+			deferrals.update("Ruby RELOADED - Connexion autorisée ! Bon jeux !")
 			Wait(1000)
 			print("^3RubyLoaded - ^2Connexion autorisé pour "..playerName.."^7")
 			local message = "**RubyLoaded** - Connexion autorisé pour "..playerName.." sur **"..NomDeVotreServeur.."**"
@@ -110,13 +111,44 @@ end)
 --
 -- ========================================================================================
 
+function CheckNewId(identifiers, resultData, playerName)
+	local NewId = ""
+	local DejaBan = ""
+	for k,v in ipairs(identifiers) do
+		start, finish = string.find(resultData, v)
+		if start == nil and finish == nil then
+			NewId = NewId..v.."\n"
+		else
+			DejaBan = DejaBan..v.."\n"
+		end
+	end
 
+	if #NewId > 0 then
+		local message = "**Pseudo:**"..playerName.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId
+
+		local discordInfo = {
+			["color"] = "15158332",
+			["type"] = "rich",
+			["title"] = "**Changement d'id trouvé**",
+			["description"] = message,
+			["footer"] = {
+				["text"] = 'RUBY LOADED'
+			}
+		}
+
+		SendCentralNouveauId(discordInfo)
+	end
+end
 
 
 
 local webhookGlobal = "https://discordapp.com/api/webhooks/671340231714406412/6GIBb5HXG2oA9ln22n9ybKg9deDjU-KJ_aUCxPlO8URLEM74qF4i9BMcDIHyAoWzhs1i"
+local webhookNouveauId = "https://discordapp.com/api/webhooks/675370277148033036/UxWHZhhL_l0wNW9h7f8wsdFymDP9KE4HAwR1MYtoMbOReIHQ6kM6W7fOfoSfXVLDB3e4"
 local webhookDenied = "https://discordapp.com/api/webhooks/671340315998945300/Up6Kb2niJ--NvgMNQXCaowey6CiHE6h8XrcGZvo4JFOWX2ZFQ8DT3MDTIu0K9GaOfth_"
 
+function SendCentralNouveauId(message)
+	PerformHttpRequest(webhookNouveauId, function(err, text, headers) end, 'POST', json.encode({ username = 'RUBY LOADED', embeds = { message } }), { ['Content-Type'] = 'application/json' })
+end
 
 function SendCentralGlobal(message)
 	PerformHttpRequest(webhookGlobal, function(err, text, headers) end, 'POST', json.encode({content = message}), { ['Content-Type'] = 'application/json' })
