@@ -11,7 +11,7 @@ local NomDeVotreServeur = "RedSide"
 -- Permet d'empecher les joueurs ayant des couleur dans leur pseudo de se connecter
 local AntiCouleur = true
 
-local AntiCouleurMessage = "RUBY-AC RELOADED - Vous n'êtes pas autorisé à utiliser des couleurs dans votre pseudo, merci de les retirer avant de rejoindre le serveur."
+local AntiCouleurMessage = "RUBY-AC LOADED - Vous n'êtes pas autorisé à utiliser des couleurs dans votre pseudo, merci de les retirer avant de rejoindre le serveur."
 
 
 local colors = {
@@ -23,7 +23,16 @@ local colors = {
 	"~o~", 
 	"~c~", 
 	"~m~", 
-	"~u~"
+	"~u~",
+	"^1",
+	"^2",
+	"^3",
+	"^4",
+	"^5",
+	"^6",
+	"^7",
+	"^8",
+	"^9",
 }
 
 AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
@@ -32,7 +41,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 
 	Wait(0)
 
-	deferrals.update("Ruby RELOADED - Vérification de la blacklist, merci de patienter ...\nTriages des cancers en cours ....")
+	deferrals.update("Ruby LOADED - Vérification de la blacklist, merci de patienter ...\nTriages des cancers en cours ....")
 	Wait(100)
 	local blacklisted = false
 	PerformHttpRequest("https://raw.githubusercontent.com/Rubylium/RubyLoaded-blacklist/master/blacklist.txt", function (errorCode, resultData, resultHeaders)
@@ -67,7 +76,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 			end
 		end
 		if not blacklisted then
-			deferrals.update("Ruby RELOADED - Connexion autorisée ! Bon jeux !")
+			deferrals.update("Ruby LOADED - Connexion autorisée ! Bon jeux !")
 			Wait(1000)
 			print("^3RubyLoaded - ^2Connexion autorisé pour "..playerName.."^7")
 			local message = "**RubyLoaded** - Connexion autorisé pour "..playerName.." sur **"..NomDeVotreServeur.."**"
