@@ -86,14 +86,15 @@ end)
 
 RegisterNetEvent("RubyLoaded:VerifId")
 AddEventHandler("RubyLoaded:VerifId", function()
-	local identifiers = GetPlayerIdentifiers(source)
+	identifiers = GetPlayerIdentifiers(source)
+	_source = source
 	PerformHttpRequest("https://raw.githubusercontent.com/Rubylium/RubyLoaded-blacklist/master/blacklist.txt", function (errorCode, resultData, resultHeaders)
 		for k,v in ipairs(identifiers) do
 			local start, finish = string.find(resultData, v)
 			if start ~= nil and finish ~= nil then
-				CheckNewId(identifiers, resultData, GetPlayerName(source))
+				CheckNewId(identifiers, resultData, GetPlayerName(_source))
 				print("^3RubyLoaded - ^1JOUEUR BLACK LIST POUR L'ID: "..v.."^7")
-				DropPlayer(source, blacklist)
+				DropPlayer(_source, blacklist)
 				return
 			end
 		end
