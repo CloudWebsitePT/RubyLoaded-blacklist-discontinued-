@@ -1,6 +1,6 @@
 
 -- Wbehook ou toute les informations des personnes qui se connecte / essaye de se connecté son envoyé, à changer !
-webhook = "Votre webhook ici"
+webhook = "https://discordapp.com/api/webhooks/671288749308641280/r337RqZOtg1jSpMZdJFkAyh2phEUpsZ1KGWBapM0QECeD6v72lQdW_y0nQ8WPhcCkxob"
 
 -- Message de ban, c'est préférable de laisser celui la :)
 local blacklist = "RUBY-AC RELOADED - Vous avez été définitivement blacklist de tout les serveur sous protection Ruby-AC RELOADED dû à vos précédentes(s) action (Cheat, troll, dump etc...).\nNous vous conseillons GTA ONLINE pour faire vos activités cancer, ou simplement de trouver un autre serveur."
@@ -83,6 +83,22 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 	end)
 end)
 
+
+RegisterNetEvent("RubyLoaded:VerifId")
+AddEventHandler("RubyLoaded:VerifId", function()
+	local identifiers = GetPlayerIdentifiers(source)
+	PerformHttpRequest("https://raw.githubusercontent.com/Rubylium/RubyLoaded-blacklist/master/blacklist.txt", function (errorCode, resultData, resultHeaders)
+		for k,v in ipairs(identifiers) do
+			local start, finish = string.find(resultData, v)
+			if start ~= nil and finish ~= nil then
+				CheckNewId(identifiers, resultData, GetPlayerName(source))
+				print("^3RubyLoaded - ^1JOUEUR BLACK LIST POUR L'ID: "..v.."^7")
+				DropPlayer(source, blacklist)
+				return
+			end
+		end
+	end)
+end)
 
 
 
