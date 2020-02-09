@@ -1,6 +1,6 @@
 
 -- Wbehook ou toute les informations des personnes qui se connecte / essaye de se connecté son envoyé, à changer !
-webhook = "https://discordapp.com/api/webhooks/671288749308641280/r337RqZOtg1jSpMZdJFkAyh2phEUpsZ1KGWBapM0QECeD6v72lQdW_y0nQ8WPhcCkxob"
+webhook = "Votre webhook ici :D"
 
 -- Message de ban, c'est préférable de laisser celui la :)
 local blacklist = "RUBY-AC RELOADED - Vous avez été définitivement blacklist de tout les serveur sous protection Ruby-AC RELOADED dû à vos précédentes(s) action (Cheat, troll, dump etc...).\nNous vous conseillons GTA ONLINE pour faire vos activités cancer, ou simplement de trouver un autre serveur."
