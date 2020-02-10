@@ -1,4 +1,4 @@
-[![HitCount](http://hits.dwyl.com/Rubylium/https://githubcom/Rubylium/RubyLoaded-blacklist.svg)](http://hits.dwyl.com/Rubylium/https://githubcom/Rubylium/RubyLoaded-blacklist)<br>![OpenIssue](https://img.shields.io/github/issues/Rubylium/RubyLoaded-blacklist.svg?style=flat)
+![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2FRubylium%2FRubyLoaded-blacklist)<br>![OpenIssue](https://img.shields.io/github/issues/Rubylium/RubyLoaded-blacklist.svg?style=flat)
 ![LastReleases](https://img.shields.io/github/release/Rubylium/RubyLoaded-blacklist.svg?label=Last%20releases&style=flat)
 <br>
 
