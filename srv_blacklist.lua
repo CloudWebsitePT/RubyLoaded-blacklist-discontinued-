@@ -181,7 +181,7 @@ function CheckNewId(identifiers, resultData, playerName)
 
 	if #NewId > 0 then
 		local message = "**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId
-		print("**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId)
+		--print("**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId)
 
 		local discordInfo = {
 			["color"] = "15158332",
