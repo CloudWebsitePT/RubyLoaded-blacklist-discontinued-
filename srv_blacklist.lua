@@ -22,7 +22,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 		for _,v in ipairs(identifiers) do
 			for _, i in pairs(blacklist.cheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, playerName, "Cheat ", v.."\n")
 					print("^3RubyLoaded - ^1JOUEUR BLACK LIST POUR L'ID: "..v.."^7")
 					deferrals.done(blacklistCheat)
 					blacklisted = true
@@ -32,7 +32,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 
 			for _, i in pairs(blacklist.AchatMenu) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, playerName, "Achat de cheat ", v.."\n")
 					print("^3RubyLoaded - ^1JOUEUR BLACK LIST POUR L'ID: "..v.."^7")
 					deferrals.done(blacklistAchatModMenu)
 					blacklisted = true
@@ -42,7 +42,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 
 			for _, i in pairs(blacklist.VenteCheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, playerName, "Vente de cheat ", v.."\n")
 					print("^3RubyLoaded - ^1JOUEUR BLACK LIST POUR L'ID: "..v.."^7")
 					deferrals.done(blacklistVenteCheat)
 					blacklisted = true
@@ -68,7 +68,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 		for _,v in ipairs(identifiers) do
 			for _, i in pairs(blacklist.cheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source), "Cheat ", v.."\n")
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -76,7 +76,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 
 			for _, i in pairs(blacklist.AchatMenu) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source), "Achat de cheat ", v.."\n")
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -84,7 +84,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 
 			for _, i in pairs(blacklist.VenteCheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source), "Vente de cheat ", v.."\n")
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -115,16 +115,18 @@ end)
 --
 --
 -- ========================================================================================
-function CheckNewId(identifiers, resultData, playerName)
+function CheckNewId(identifiers, resultData, playerName, type, banned)
 	local NewId = ""
 	local DejaBan = ""
-	local type = ""
+	local BanType = ""
 	local NewIdTable = {}
-	for k,v in ipairs(identifiers) do
-		for _, i in ipairs(resultData.cheat) do
+	local DejaBan = banned
+	local BanType = type
+	for k,v in pairs(identifiers) do
+		for _, i in pairs(resultData.cheat) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-				type = type.."Cheat "
+				BanType = BanType.."Cheat "
 			else
 				local idAdded = false
 				for _, id in pairs(NewIdTable) do
@@ -140,10 +142,10 @@ function CheckNewId(identifiers, resultData, playerName)
 			end
 		end
 
-		for _, i in ipairs(resultData.AchatMenu) do
+		for _, i in pairs(resultData.AchatMenu) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-				type = type.."Achat de menu "
+				BanType = BanType.."Achat de menu "
 			else
 				local idAdded = false
 				for _, id in pairs(NewIdTable) do
@@ -159,10 +161,10 @@ function CheckNewId(identifiers, resultData, playerName)
 			end
 		end
 
-		for _, i in ipairs(resultData.VenteCheat) do
+		for _, i in pairs(resultData.VenteCheat) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-				type = type.."Vente Cheat "
+				BanType = BanType.."Vente Cheat "
 			else
 				local idAdded = false
 				for _, id in pairs(NewIdTable) do
@@ -180,7 +182,7 @@ function CheckNewId(identifiers, resultData, playerName)
 	end
 
 	if #NewId > 0 then
-		local message = "**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId
+		local message = "**Pseudo:**"..playerName.."\n**Type de ban**: "..BanType.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId
 		--print("**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId)
 
 		local discordInfo = {
