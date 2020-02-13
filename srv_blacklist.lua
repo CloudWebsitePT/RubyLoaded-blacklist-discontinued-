@@ -15,11 +15,7 @@ local blacklistVenteCheat = "RubyLoaded - Vous avez été définitivement blackl
 AddEventHandler('playerConnecting', function(playerName, setKickReason, deferrals)
 	identifiers = GetPlayerIdentifiers(source)
 	deferrals.defer()
-
-	Wait(0)
-
 	deferrals.update("Ruby RELOADED - Vérification de la blacklist, merci de patienter ...\nTriages des cancers en cours ....")
-	Wait(100)
 	local blacklisted = false
 	PerformHttpRequest("https://raw.githubusercontent.com/Rubylium/RubyLoaded-blacklist/master/blacklist.json", function (errorCode, resultData, resultHeaders)
 		local blacklist = json.decode(resultData)
@@ -57,7 +53,6 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
 
 		if not blacklisted then
 			deferrals.update("Ruby RELOADED - Connexion autorisée ! Bon jeux !")
-			Wait(1000)
 			print("^3RubyLoaded - ^2Connexion autorisé pour "..playerName.."^7")
 			deferrals.done()
 		end
@@ -73,7 +68,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 		for _,v in ipairs(identifiers) do
 			for _, i in pairs(blacklist.cheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -81,7 +76,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 
 			for _, i in pairs(blacklist.AchatMenu) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -89,7 +84,7 @@ AddEventHandler("RubyLoaded:VerifId", function()
 
 			for _, i in pairs(blacklist.VenteCheat) do
 				if i == v then
-					CheckNewId(identifiers, blacklist, playerName)
+					CheckNewId(identifiers, blacklist, GetPlayerName(_source))
 					DropPlayer(_source, GetPlayerName(_source))
 					return
 				end
@@ -120,42 +115,73 @@ end)
 --
 --
 -- ========================================================================================
-
 function CheckNewId(identifiers, resultData, playerName)
 	local NewId = ""
 	local DejaBan = ""
 	local type = ""
+	local NewIdTable = {}
 	for k,v in ipairs(identifiers) do
-		for _, i in pairs(resultData.cheat) do
+		for _, i in ipairs(resultData.cheat) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-			else
-				NewId = NewId..v.."\n"
 				type = type.."Cheat "
+			else
+				local idAdded = false
+				for _, id in pairs(NewIdTable) do
+					if id == v then
+						idAdded = true
+					end
+				end
+				if not idAdded then
+					NewId = NewId..v.."\n"
+					table.insert(NewIdTable, v)
+					break
+				end
 			end
 		end
 
-		for _, i in pairs(resultData.AchatMenu) do
+		for _, i in ipairs(resultData.AchatMenu) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-			else
-				NewId = NewId..v.."\n"
 				type = type.."Achat de menu "
+			else
+				local idAdded = false
+				for _, id in pairs(NewIdTable) do
+					if id == v then
+						idAdded = true
+					end
+				end
+				if not idAdded then
+					NewId = NewId..v.."\n"
+					table.insert(NewIdTable, v)
+					break
+				end
 			end
 		end
 
-		for _, i in pairs(resultData.VenteCheat) do
+		for _, i in ipairs(resultData.VenteCheat) do
 			if i == v then
 				DejaBan = DejaBan..v.."\n"
-			else
-				NewId = NewId..v.."\n"
 				type = type.."Vente Cheat "
+			else
+				local idAdded = false
+				for _, id in pairs(NewIdTable) do
+					if id == v then
+						idAdded = true
+					end
+				end
+				if not idAdded then
+					NewId = NewId..v.."\n"
+					table.insert(NewIdTable, v)
+					break
+				end
 			end
 		end
 	end
 
 	if #NewId > 0 then
 		local message = "**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId
+		print("**Pseudo:**"..playerName.."\n**Type de ban**: "..type.."\n**ID Déja banni:**\n"..DejaBan.."\n**Nouveaux ID:**\n"..NewId)
 
 		local discordInfo = {
 			["color"] = "15158332",
