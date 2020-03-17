@@ -2,7 +2,7 @@
 ![LastReleases](https://img.shields.io/github/release/Rubylium/RubyLoaded-blacklist.svg?label=Last%20releases&style=flat)
 <br>
 
-# RubyLoaded-blacklist
+# RubyLoaded-blacklist [discontinued]
 
 Pour aider la communauté contre les cheateur et moddeur, j'ai donc décidé de créer un système de blacklist. Tous les bans de mon Anti Cheat RUBY-AC / RUBY-AC Reloaded que j'aurais moi-même validé seront automatiquement ajouté à la blacklist, ainsi un mordeur banni par mon AC, se verra aussi banni automatiquement de tous les serveurs ayant la ressource Ruby Loaded
 
