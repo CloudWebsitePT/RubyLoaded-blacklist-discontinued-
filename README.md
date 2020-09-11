@@ -9,4 +9,4 @@ Pour aider la communauté contre les cheateur et moddeur, j'ai donc décidé de 
 Et les meilleurs ? C'est gratuit ! On a beau être des concurrents avec nos serveurs différents, notre ennemie commune reste les cheateur et moddeur qui peuvent ruiner les meilleurs des serveurs. Mettre la ressource sur son serveur, lancer là et c'est tout, rien à faire d'autre. La blacklist se met à jour automatiquement sans reboot
 **Ce discord ne donne pas accès au Ruby-AC MAIS à la blacklist uniquement**
 
-**Discord :** https://discord.gg/YJv2KWq
+**Discord :** https://discord.gg/BKVkQsS
